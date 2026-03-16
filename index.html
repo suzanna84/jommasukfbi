@@ -794,14 +794,19 @@ return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response from AI";
             const userPrompt = `A prospective student says: "${input}". Which of your programmes fits them best?`;
 
             try {
-               
-                    errorEl.innerText = "Oops! Our AI advisor is currently taking a break. Please try again later.";
-                }
-                errorEl.classList.remove('hidden');
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = `<span class="flex items-center"><i data-lucide="sparkles" class="w-5 h-5 mr-3 text-[#F4C542] group-hover:animate-pulse"></i> Find My Match</span>`;
-                lucide.createIcons();
+    const res = await callGeminiAPI(userPrompt, sysPrompt);
+    outputEl.innerHTML = renderFormattedText(res);
+    resultBox.classList.remove('hidden');
+
+} catch (err) {
+    errorEl.innerText = "Oops! Our AI advisor is currently taking a break. Please try again later.";
+    errorEl.classList.remove('hidden');
+
+} finally {
+    btn.disabled = false;
+    btn.innerHTML = `<span class="flex items-center"><i data-lucide="sparkles" class="w-5 h-5 mr-3 text-[#F4C542] group-hover:animate-pulse"></i> Find My Match</span>`;
+    lucide.createIcons();
+}
             }
         }
         
