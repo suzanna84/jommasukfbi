@@ -794,14 +794,7 @@ return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response from AI";
             const userPrompt = `A prospective student says: "${input}". Which of your programmes fits them best?`;
 
             try {
-                if(!API_KEY) throw new Error("401");
-                const res = await callGeminiAPI(userPrompt, sysPrompt);
-                outputEl.innerHTML = renderFormattedText(res);
-                resultBox.classList.remove('hidden');
-            } catch (err) {
-                if(err.message === "401") {
-                    errorEl.innerText = "Maaf, API Key tidak valid. Sila periksa tetapan API Key anda.";
-                } else {
+               
                     errorEl.innerText = "Oops! Our AI advisor is currently taking a break. Please try again later.";
                 }
                 errorEl.classList.remove('hidden');
